@@ -1,0 +1,19 @@
+{
+  "name": "rltink-mbridge",
+  "version": "0.1.0",
+  "description": "瑞太自用的h5与native通讯桥模块",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whutpsychic/rtlink-mbridge.git"
+  },
+  "author": "zbc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/whutpsychic/rtlink-mbridge/issues"
+  },
+  "homepage": "https://github.com/whutpsychic/rtlink-mbridge#readme"
+}
