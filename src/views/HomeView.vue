@@ -7,12 +7,15 @@
     <van-button class="btn" type="primary" block @click="onModalConfirm">ModalConfirm</van-button>
     <van-button class="btn" type="primary" block @click="onModalLoading">ModalLoading</van-button>
     <van-button class="btn" type="primary" block @click="onModalProgress">ModalProgress</van-button>
+    <van-button class="btn" type="primary" block @click="onWriteLocal">WriteLocal</van-button>
+    <van-button class="btn" type="primary" block @click="onReadLocal">ReadLocal</van-button>
   </header>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { showToast, modalTips, modalConfirm, modalLoading, finishLoading, modalProgress, setProgress } from '$'
+import { writeLocal, readLocal } from '$'
 
 // const fileList = ref([])
 
@@ -38,11 +41,19 @@ function onModalLoading() {
 
 function onModalProgress() {
   modalProgress('正在执行中...', hell)
-
   setTimeout(() => { setProgress(30) }, 800)
   setTimeout(() => { setProgress(70) }, 1600)
   setTimeout(() => { setProgress(100) }, 2400)
+}
 
+function onWriteLocal() {
+  writeLocal('damn', 'God damn it!')
+}
+
+function onReadLocal() {
+  readLocal('damn', (res) => {
+    alert(res)
+  })
 }
 
 function hell() {
@@ -50,7 +61,6 @@ function hell() {
 }
 
 </script>
-
 
 <style scoped>
 header {
