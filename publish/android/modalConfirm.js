@@ -1,7 +1,7 @@
 import { androidName, chromeErrMsg } from '../global.js'
 import { insertCallbackFn } from '../utils.js'
 
-const fnKey = `modalTips`
+const fnKey = `modalConfirm`
 const callbackFnKey = `${fnKey}Callback`
 
 export default function fn(title, content, callback) {

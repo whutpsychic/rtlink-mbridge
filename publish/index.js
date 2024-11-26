@@ -1,4 +1,8 @@
 import showToast from './android/toast.js'
 import modalTips from './android/modalTips.js'
+import modalConfirm from './android/modalConfirm.js'
+import { fn as modalLoading, finishLoading } from './android/modalLoading.js'
+import { fn as modalProgress, setProgress } from './android/modalProgress.js'
 
-export { showToast, modalTips }
+export { showToast, modalTips, modalConfirm, modalLoading, finishLoading }
+export { modalProgress, setProgress }
