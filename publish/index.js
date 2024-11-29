@@ -5,6 +5,7 @@ import { fn as modalLoading, finishLoading } from './android/modalLoading.js'
 import { fn as modalProgress, setProgress } from './android/modalProgress.js'
 import writeLocal from './android/writeLocal.js'
 import readLocal from './android/readLocal.js'
+import scan from './android/scan.js'
 
 export { showToast, modalTips, modalConfirm, modalLoading, finishLoading }
-export { modalProgress, setProgress, writeLocal, readLocal }
+export { modalProgress, setProgress, writeLocal, readLocal, scan }

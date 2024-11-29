@@ -9,13 +9,14 @@
     <van-button class="btn" type="primary" block @click="onModalProgress">ModalProgress</van-button>
     <van-button class="btn" type="primary" block @click="onWriteLocal">WriteLocal</van-button>
     <van-button class="btn" type="primary" block @click="onReadLocal">ReadLocal</van-button>
+    <van-button class="btn" type="primary" block @click="onScan">Scan Mix</van-button>
   </header>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { showToast, modalTips, modalConfirm, modalLoading, finishLoading, modalProgress, setProgress } from '$'
-import { writeLocal, readLocal } from '$'
+import { writeLocal, readLocal, scan } from '$'
 
 // const fileList = ref([])
 
@@ -55,6 +56,14 @@ function onReadLocal() {
     alert(res)
   })
 }
+
+function onScan() {
+  scan((res) => {
+    alert(res)
+  })
+}
+
+// ---------------------------------------------------
 
 function hell() {
   alert(' Callback function from web !!!!!! ')
