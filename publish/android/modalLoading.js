@@ -4,22 +4,21 @@ import { insertCallbackFn } from '../utils.js'
 const fnKey = `modalLoading`
 const callbackFnKey = `${fnKey}Callback`
 
-export function fn(title, content, callback) {
+export function fn(title, content) {
   try {
     // 运行已注册函数
     window[androidName][fnKey](title, content)
-    // 抛送回调函数
-    insertCallbackFn(callbackFnKey, callback)
   } catch (err) {
     console.error(err, chromeErrMsg)
   }
 }
 
 export function finishLoading() {
-  try {
-    // 运行已注册函数
+  return new Promise((reolve) => {
+    // 抛送回调函数
+    insertCallbackFn(callbackFnKey, reolve)
     window[androidName].finish()
-  } catch (err) {
+  }).catch((err) => {
     console.error(err, chromeErrMsg)
-  }
+  })
 }
