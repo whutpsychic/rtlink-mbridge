@@ -9,7 +9,9 @@ import scan from './android/scan.js'
 import preDial from './android/preDial.js'
 import checkNetworkType from './android/checkNetworkType.js'
 import takePhoto from './android/takePhoto.js'
+import { vibrate, vibrate2 } from './android/vibrate.js'
+import getSafeTop from './android/getSafeTop.js'
 
 export { showToast, modalTips, modalConfirm, modalLoading, finishLoading }
 export { modalProgress, setProgress, writeLocal, readLocal, scan, preDial, checkNetworkType }
-export { takePhoto }
+export { takePhoto, vibrate, vibrate2, getSafeTop }

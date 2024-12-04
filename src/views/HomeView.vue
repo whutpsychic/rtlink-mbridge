@@ -1,26 +1,28 @@
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-    <van-uploader v-model="dm" multiple></van-uploader>
-    <van-button class="btn" type="primary" block @click="showToast('显示toast.')">Toast</van-button>
-    <van-button class="btn" type="primary" block @click="onModalTips">ModalTips</van-button>
-    <van-button class="btn" type="primary" block @click="onModalConfirm">ModalConfirm</van-button>
-    <van-button class="btn" type="primary" block @click="onModalLoading">ModalLoading</van-button>
-    <van-button class="btn" type="primary" block @click="onModalProgress">ModalProgress</van-button>
-    <van-button class="btn" type="primary" block @click="writeLocal('damn', 'God damn it!')">WriteLocal</van-button>
-    <van-button class="btn" type="primary" block @click="onReadLocal">ReadLocal</van-button>
-    <van-button class="btn" type="primary" block @click="onScan">Scan Mix</van-button>
-    <van-button class="btn" type="primary" block @click="preDial('18043730725')">Dial Number: 18043730725</van-button>
-    <van-button class="btn" type="primary" block @click="onCheckNetworkType">NetWork Type</van-button>
-    <van-button class="btn" type="primary" block @click="onTakePhoto">Take Photo</van-button>
-    <img alt="." :src="imgSrc" style="width:calc(100vw - 80px);height: auto;" />
-  </header>
+  <div style="width: 100%;height:38px;background-color: purple;"></div>
+  <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <van-uploader v-model="dm" multiple></van-uploader>
+  <van-button class="btn" type="primary" block @click="showToast('显示toast.')">Toast</van-button>
+  <van-button class="btn" type="primary" block @click="onModalTips">ModalTips</van-button>
+  <van-button class="btn" type="primary" block @click="onModalConfirm">ModalConfirm</van-button>
+  <van-button class="btn" type="primary" block @click="onModalLoading">ModalLoading</van-button>
+  <van-button class="btn" type="primary" block @click="onModalProgress">ModalProgress</van-button>
+  <van-button class="btn" type="primary" block @click="writeLocal('damn', 'God damn it!')">WriteLocal</van-button>
+  <van-button class="btn" type="primary" block @click="onReadLocal">ReadLocal</van-button>
+  <van-button class="btn" type="primary" block @click="onScan">Scan Mix</van-button>
+  <van-button class="btn" type="primary" block @click="preDial('18043730725')">Dial Number: 18043730725</van-button>
+  <van-button class="btn" type="primary" block @click="onCheckNetworkType">NetWork Type</van-button>
+  <van-button class="btn" type="primary" block @click="onTakePhoto">Take Photo</van-button>
+  <van-button class="btn" type="primary" block @click="vibrate">Vibrate</van-button>
+  <van-button class="btn" type="primary" block @click="vibrate2">Vibrate2</van-button>
+  <van-button class="btn" type="primary" block @click="onGetSafeTop">Safe Top</van-button>
+  <img alt="." :src="imgSrc" style="width:calc(100vw - 80px);height: auto;" />
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { showToast, modalTips, modalConfirm, modalLoading, finishLoading, modalProgress, setProgress } from '$'
-import { writeLocal, readLocal, scan, preDial, checkNetworkType, takePhoto } from '$'
+import { writeLocal, readLocal, scan, preDial, checkNetworkType, takePhoto, vibrate, vibrate2, getSafeTop } from '$'
 
 const dm = ref()
 const imgSrc = ref()
@@ -81,10 +83,13 @@ function onTakePhoto() {
   })
 }
 
+function onGetSafeTop() {
+  getSafeTop().then((res) => {
+    alert(res)
+  })
 
 
-
-
+}
 
 
 
