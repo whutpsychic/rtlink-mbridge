@@ -8,6 +8,8 @@ import readLocal from './android/readLocal.js'
 import scan from './android/scan.js'
 import preDial from './android/preDial.js'
 import checkNetworkType from './android/checkNetworkType.js'
+import takePhoto from './android/takePhoto.js'
 
 export { showToast, modalTips, modalConfirm, modalLoading, finishLoading }
 export { modalProgress, setProgress, writeLocal, readLocal, scan, preDial, checkNetworkType }
+export { takePhoto }
