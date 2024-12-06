@@ -16,6 +16,11 @@
   <van-button class="btn" type="primary" block @click="vibrate">Vibrate</van-button>
   <van-button class="btn" type="primary" block @click="vibrate2">Vibrate2</van-button>
   <van-button class="btn" type="primary" block @click="onGetSafeTop">Safe Top</van-button>
+  <van-button class="btn" type="primary" block @click="setScreenHorizontal">强制/恢复横屏</van-button>
+  <van-button class="btn" type="primary" block @click="setScreenPortrait">强制/恢复竖屏</van-button>
+  <van-button class="btn" type="primary" block @click="notification(1, '标题', '通知内容')">通知</van-button>
+  <van-button class="btn" type="primary" block @click="notificationAsync(2, '标题', '通知内容2，杀进程后将失效', 4)">延迟通知</van-button>
+  <van-button class="btn" type="primary" block @click="ipConfig">IP Config</van-button>
   <img alt="." :src="imgSrc" style="width:calc(100vw - 80px);height: auto;" />
 </template>
 
@@ -23,9 +28,12 @@
 import { ref } from 'vue'
 import { showToast, modalTips, modalConfirm, modalLoading, finishLoading, modalProgress, setProgress } from '$'
 import { writeLocal, readLocal, scan, preDial, checkNetworkType, takePhoto, vibrate, vibrate2, getSafeTop } from '$'
+import { setScreenHorizontal, setScreenPortrait, notification, notificationAsync, ipConfig } from '$'
 
 const dm = ref()
 const imgSrc = ref()
+
+// ipConfig()
 
 function onModalTips() {
   modalTips('标题', 'ModalTips').then(() => {

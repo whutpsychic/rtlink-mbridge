@@ -11,7 +11,13 @@ import checkNetworkType from './android/checkNetworkType.js'
 import takePhoto from './android/takePhoto.js'
 import { vibrate, vibrate2 } from './android/vibrate.js'
 import getSafeTop from './android/getSafeTop.js'
+import setScreenHorizontal from './android/setScreenHorizontal.js'
+import setScreenPortrait from './android/setScreenPortrait.js'
+import notification from './android/notification.js'
+import notificationAsync from './android/notificationAsync.js'
+import ipConfig from './android/ipConfig.js'
 
 export { showToast, modalTips, modalConfirm, modalLoading, finishLoading }
 export { modalProgress, setProgress, writeLocal, readLocal, scan, preDial, checkNetworkType }
-export { takePhoto, vibrate, vibrate2, getSafeTop }
+export { takePhoto, vibrate, vibrate2, getSafeTop, setScreenHorizontal, setScreenPortrait }
+export { notification, notificationAsync, ipConfig }
