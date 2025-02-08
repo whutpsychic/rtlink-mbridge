@@ -6,6 +6,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { VantResolver } from '@vant/auto-import-resolver'
+import legacyPlugin from '@vitejs/plugin-legacy'
 
 // 打包库
 const buildLib = false
@@ -25,6 +26,10 @@ const libBuildConfig = defineConfig({
 
 // 用于打包网页项目
 const webBuildConfig = defineConfig({
+  base: './',
+  build: {
+    target: 'es2015'
+  },
   plugins: [
     vue(),
     vueJsx(),
@@ -33,6 +38,10 @@ const webBuildConfig = defineConfig({
     }),
     Components({
       resolvers: [VantResolver()]
+    }),
+    legacyPlugin({
+      targets: ['chrome 66'],
+      // additionalLegacyPolyfills: ['regenerator-runtime/runtime']
     })
   ],
   resolve: {
