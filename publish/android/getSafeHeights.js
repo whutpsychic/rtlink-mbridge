@@ -1,7 +1,7 @@
 import { androidName, chromeErrMsg } from '../global.js'
 import { insertCallbackFn } from '../utils.js'
 
-const fnKey = `getSafeTop`
+const fnKey = `getSafeHeights`
 const callbackFnKey = `${fnKey}Callback`
 
 export default function fn() {
