@@ -29,7 +29,7 @@
 <script setup>
 import { ref } from 'vue'
 import { showToast, modalTips, modalConfirm, modalLoading, finishLoading, modalProgress, setProgress } from '$'
-import { writeLocal, readLocal, scan, preDial, checkNetworkType, takePhoto, vibrate, vibrate2, getSafeTop } from '$'
+import { writeLocal, readLocal, scan, preDial, checkNetworkType, takePhoto, vibrate, vibrate2, getSafeHeights } from '$'
 import { setScreenHorizontal, setScreenPortrait, notification, notificationAsync, ipConfig, getDeviceInfo } from '$'
 
 const dm = ref()
@@ -94,7 +94,7 @@ function onTakePhoto() {
 }
 
 function onGetSafeTop() {
-  getSafeTop().then((res) => {
+  getSafeHeights().then((res) => {
     alert(JSON.stringify(res))
     // alert(res)
   })
