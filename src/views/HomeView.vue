@@ -2,9 +2,14 @@
   <div style="width: 100%;height:38px;background-color: purple;"></div>
   <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
   <van-uploader v-model="dm" multiple></van-uploader>
-  <van-button class="btn" type="primary" block @click="onGetDeviceInfo">获取设备信息</van-button>
-  <van-button class="btn" type="primary" block @click="showToast('显示toast.')">Toast</van-button>
-  <van-button class="btn" type="primary" block @click="onModalTips">ModalTips</van-button>
+
+  <p>{{ done }}</p>
+  <p>{{ nope }}</p>
+  <p id="msg"></p>
+
+  <van-button class="btn" type="primary" block @click="test">test</van-button>
+
+  <van-button class="btn" type="primary" block @click="onModalTips">Native Alert</van-button>
   <van-button class="btn" type="primary" block @click="onModalConfirm">ModalConfirm</van-button>
   <van-button class="btn" type="primary" block @click="onModalLoading">ModalLoading</van-button>
   <van-button class="btn" type="primary" block @click="onModalProgress">ModalProgress</van-button>
@@ -22,30 +27,56 @@
   <van-button class="btn" type="primary" block @click="notification(1, '标题', '通知内容')">通知</van-button>
   <van-button class="btn" type="primary" block @click="notificationAsync(2, '标题', '通知内容2，杀进程后将失效', 4)">延迟通知</van-button>
   <van-button class="btn" type="primary" block @click="ipConfig">IP Config</van-button>
+  <van-button class="btn" type="primary" block @click="onGetDeviceInfo">获取设备信息</van-button>
+  <van-button class="btn" type="primary" block @click="showToast('显示toast.')">Toast</van-button>
 
   <img alt="." :src="imgSrc" style="width:calc(100vw - 80px);height: auto;" />
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { showToast, modalTips, modalConfirm, modalLoading, finishLoading, modalProgress, setProgress } from '$'
+// 
+import { modalTips } from '$'
+// ================================================================================================================
+import { showToast, modalConfirm, modalLoading, finishLoading, modalProgress, setProgress } from '$'
 import { writeLocal, readLocal, scan, preDial, checkNetworkType, takePhoto, vibrate, vibrate2, getSafeHeights } from '$'
 import { setScreenHorizontal, setScreenPortrait, notification, notificationAsync, ipConfig, getDeviceInfo } from '$'
 
+// import modalTips2 from '$/ios/modalTips.js'
 const dm = ref()
 const imgSrc = ref()
+const done = ref('')
+const nope = ref('')
 
-// ipConfig()
+async function test() {
+  modalTips('标题33', 'ModalTips636').then(() => {
+    // alert("您点击了 modalTips 确定")
+    actionDone()
+  })
+  // alert(window.RTMB.platform)
+  return
+  try {
+    let reply = await window.webkit.messageHandlers['modalTips'].postMessage('asdasdasdasdasdsdax')
+    alert(reply)
+  } catch (err) {
+    alert(err)
+    console.error(err)
+  }
+}
 
 function onModalTips() {
-  modalTips('标题', 'ModalTips').then(() => {
-    alert("您点击了 modalTips 确定")
+  modalTips('标题12', 'ModalTips333').then(() => {
+    // alert("您点击了 modalTips 确定")
+    actionDone()
   })
 }
 
+// ================================================================================================================
+
 function onModalConfirm() {
   modalConfirm('标题', 'ModalConfirm').then(() => {
-    alert("您点击了 modalConfirm 确定")
+    confirm("您点击了 modalConfirm 确定")
+    actionDone()
   })
 }
 
@@ -71,18 +102,21 @@ function onModalProgress() {
 function onReadLocal() {
   readLocal('damn', (res) => {
     alert(res)
+    actionDone()
   })
 }
 
 function onScan() {
   scan((res) => {
     alert(res)
+    actionDone()
   })
 }
 
 function onCheckNetworkType() {
   checkNetworkType().then((res) => {
     alert(res)
+    actionDone()
   })
 }
 
@@ -90,6 +124,7 @@ function onTakePhoto() {
   takePhoto().then((base64Str) => {
     alert(base64Str)
     imgSrc.value = base64Str
+    actionDone()
   })
 }
 
@@ -97,25 +132,35 @@ function onGetSafeTop() {
   getSafeHeights().then((res) => {
     alert(JSON.stringify(res))
     // alert(res)
+    actionDone()
   })
 }
 
 function onGetDeviceInfo() {
   getDeviceInfo().then((res) => {
     alert(JSON.stringify(res))
+    actionDone()
   })
 }
 
 
 
 // ---------------------------------------------------
+function actionDone() {
+  done.value = 'done!'
+  setTimeout(() => {
+    done.value = ''
+  }, 2000);
+}
 
 function hell() {
   alert(' Callback function from web !!!!!! ')
+  actionDone()
 }
 
 function hell2() {
   alert('后续动作')
+  actionDone()
 }
 
 </script>

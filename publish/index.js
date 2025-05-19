@@ -1,5 +1,11 @@
+import { getPlatform } from './utils'
+// --------------------------------- Android /iOS ---------------------------------
+import modalTipsA from './android/modalTips.js'
+import modalTipsI from './ios/modalTips.js'
+
+
+// --------------------------------- Android only ---------------------------------
 import showToast from './android/toast.js'
-import modalTips from './android/modalTips.js'
 import modalConfirm from './android/modalConfirm.js'
 import { fn as modalLoading, finishLoading } from './android/modalLoading.js'
 import { fn as modalProgress, setProgress } from './android/modalProgress.js'
@@ -18,7 +24,22 @@ import notificationAsync from './android/notificationAsync.js'
 import ipConfig from './android/ipConfig.js'
 import getDeviceInfo from './android/getDeviceInfo.js'
 
-export { showToast, modalTips, modalConfirm, modalLoading, finishLoading }
+// 原生平台 alert 提示
+async function modalTips(title, content) {
+  if (getPlatform() === 'android') {
+    return modalTipsA(title, content)
+  } else if (getPlatform() === 'ios') {
+    return modalTipsI(title, content)
+  }
+}
+
+
+
+export { modalTips }
+
+export { showToast, modalConfirm, modalLoading, finishLoading }
 export { modalProgress, setProgress, writeLocal, readLocal, scan, preDial, checkNetworkType }
 export { takePhoto, vibrate, vibrate2, getSafeHeights, setScreenHorizontal, setScreenPortrait }
 export { notification, notificationAsync, ipConfig, getDeviceInfo }
+
+
