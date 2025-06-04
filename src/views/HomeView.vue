@@ -11,10 +11,17 @@
 
   <van-button class="btn" type="primary" block @click="onModalTips">Native Alert</van-button>
   <van-button class="btn" type="primary" block @click="onModalConfirm">ModalConfirm</van-button>
-  <van-button class="btn" type="primary" block @click="onModalLoading">ModalLoading</van-button>
-  <van-button class="btn" type="primary" block @click="onModalProgress">ModalProgress</van-button>
+
   <van-button class="btn" type="primary" block @click="writeLocal('damn', 'God damn it!')">WriteLocal</van-button>
   <van-button class="btn" type="primary" block @click="onReadLocal">ReadLocal</van-button>
+
+
+  <van-button class="btn" type="primary" block @click="onModalLoading">ModalLoading (Android Only)</van-button>
+  <van-button class="btn" type="primary" block @click="onModalProgress">ModalProgress (Android Only)</van-button>
+
+
+
+
   <van-button class="btn" type="primary" block @click="onScan">Scan Mix</van-button>
   <van-button class="btn" type="primary" block @click="preDial('18043730725')">Dial Number: 18043730725</van-button>
   <van-button class="btn" type="primary" block @click="onCheckNetworkType">NetWork Type</van-button>
@@ -36,9 +43,9 @@
 <script setup>
 import { ref } from 'vue'
 // 
-import { modalTips } from '$'
+import { modalTips, modalConfirm } from '$'
 // ================================================================================================================
-import { showToast, modalConfirm, modalLoading, finishLoading, modalProgress, setProgress } from '$'
+import { showToast, modalLoading, finishLoading, modalProgress, setProgress } from '$'
 import { writeLocal, readLocal, scan, preDial, checkNetworkType, takePhoto, vibrate, vibrate2, getSafeHeights } from '$'
 import { setScreenHorizontal, setScreenPortrait, notification, notificationAsync, ipConfig, getDeviceInfo } from '$'
 
@@ -49,9 +56,13 @@ const done = ref('')
 const nope = ref('')
 
 async function test() {
-  modalTips('标题33', 'ModalTips636').then(() => {
-    // alert("您点击了 modalTips 确定")
-    actionDone()
+  modalConfirm('标题33', 'ModalTips636').then((res) => {
+    nope.value = `${res}`
+    if (res) {
+      actionDone()
+    } else {
+      actionNoDone()
+    }
   })
   // alert(window.RTMB.platform)
   return
@@ -71,14 +82,19 @@ function onModalTips() {
   })
 }
 
-// ================================================================================================================
-
 function onModalConfirm() {
-  modalConfirm('标题', 'ModalConfirm').then(() => {
-    confirm("您点击了 modalConfirm 确定")
-    actionDone()
+  modalConfirm('标题', 'ModalConfirm').then((res) => {
+    if (res) {
+      actionDone()
+    } else {
+      actionNoDone()
+    }
   })
 }
+
+// ================================================================================================================
+
+
 
 function onModalLoading() {
   modalLoading('加载中', '请稍后...')
@@ -148,6 +164,13 @@ function onGetDeviceInfo() {
 // ---------------------------------------------------
 function actionDone() {
   done.value = 'done!'
+  setTimeout(() => {
+    done.value = ''
+  }, 2000);
+}
+
+function actionNoDone() {
+  done.value = 'nodone!'
   setTimeout(() => {
     done.value = ''
   }, 2000);

@@ -1,7 +1,7 @@
 import { kvSpliter, chromeErrMsg } from '../global.js'
 import { insertCallbackFn } from '../utils.js'
 
-const fnKey = `modalTips`
+const fnKey = `modalConfirm`
 const callbackFnKey = `${fnKey}Callback`
 
 export default async function fn(title, content) {

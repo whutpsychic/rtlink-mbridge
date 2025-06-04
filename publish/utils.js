@@ -17,6 +17,5 @@ export function getPlatform() {
   }
   catch (err) {
     return 'android'
-    console.error(err)
   }
 }

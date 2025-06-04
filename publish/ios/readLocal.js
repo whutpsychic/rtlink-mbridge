@@ -1,12 +1,12 @@
 import { kvSpliter, chromeErrMsg } from '../global.js'
 import { insertCallbackFn } from '../utils.js'
 
-const fnKey = `modalTips`
+const fnKey = `readLocal`
 const callbackFnKey = `${fnKey}Callback`
 
-export default async function fn(title, content) {
+export default async function fn(key) {
   return new Promise((resolve) => {
-    window.webkit.messageHandlers[fnKey].postMessage(`${title}${kvSpliter}${content}`)
+    window.webkit.messageHandlers[fnKey].postMessage(`${key}`)
     // 绑定resolve
     insertCallbackFn(callbackFnKey, resolve)
   }).catch((err) => {
