@@ -12,14 +12,13 @@
   <van-button class="btn" type="primary" block @click="onModalTips">Native Alert</van-button>
   <van-button class="btn" type="primary" block @click="onModalConfirm">ModalConfirm</van-button>
 
-  <van-button class="btn" type="primary" block @click="writeLocal('damn', 'God damn it!')">WriteLocal</van-button>
+  <van-button class="btn" type="primary" block @click="onWriteLocal">WriteLocal</van-button>
   <van-button class="btn" type="primary" block @click="onReadLocal">ReadLocal</van-button>
 
+  ======== Android Only ========
 
-  <van-button class="btn" type="primary" block @click="onModalLoading">ModalLoading (Android Only)</van-button>
-  <van-button class="btn" type="primary" block @click="onModalProgress">ModalProgress (Android Only)</van-button>
-
-
+  <van-button class="btn" type="primary" block @click="onModalLoading">ModalLoading</van-button>
+  <van-button class="btn" type="primary" block @click="onModalProgress">ModalProgress</van-button>
 
 
   <van-button class="btn" type="primary" block @click="onScan">Scan Mix</van-button>
@@ -43,10 +42,10 @@
 <script setup>
 import { ref } from 'vue'
 // 
-import { modalTips, modalConfirm } from '$'
+import { modalTips, modalConfirm, writeLocal, readLocal } from '$'
 // ================================================================================================================
 import { showToast, modalLoading, finishLoading, modalProgress, setProgress } from '$'
-import { writeLocal, readLocal, scan, preDial, checkNetworkType, takePhoto, vibrate, vibrate2, getSafeHeights } from '$'
+import { scan, preDial, checkNetworkType, takePhoto, vibrate, vibrate2, getSafeHeights } from '$'
 import { setScreenHorizontal, setScreenPortrait, notification, notificationAsync, ipConfig, getDeviceInfo } from '$'
 
 // import modalTips2 from '$/ios/modalTips.js'
@@ -92,6 +91,24 @@ function onModalConfirm() {
   })
 }
 
+function onWriteLocal() {
+  writeLocal('damn2', 'God damn itdddd!').then((res) => {
+    if (res) {
+      actionDone()
+    } else {
+      actionNoDone()
+    }
+  })
+}
+
+function onReadLocal() {
+  readLocal('damn').then((res) => {
+    alert(res)
+    actionDone()
+  })
+}
+
+
 // ================================================================================================================
 
 
@@ -115,12 +132,6 @@ function onModalProgress() {
   setTimeout(hell2, 3000)
 }
 
-function onReadLocal() {
-  readLocal('damn', (res) => {
-    alert(res)
-    actionDone()
-  })
-}
 
 function onScan() {
   scan((res) => {
