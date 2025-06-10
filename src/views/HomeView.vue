@@ -13,28 +13,28 @@
   <van-button class="btn" type="primary" block @click="onModalConfirm">ModalConfirm</van-button>
 
   <van-button class="btn" type="primary" block @click="onWriteLocal">WriteLocal</van-button>
-  <van-button class="btn" type="primary" block @click="onReadLocal">ReadLocal</van-button>
+  <van-button class="btn" type="primary" block @click="onReadLocal">ReadLocal android bug</van-button>
+  <van-button class="btn" type="primary" block @click="preDial('18043730725')">Dial Number: 18043730725</van-button>
+  <van-button class="btn" type="primary" block @click="onCheckNetworkType">NetWork Type</van-button>
+  <van-button class="btn" type="primary" block @click="onGetDeviceInfo">获取设备信息</van-button>
+  <van-button class="btn" type="primary" block @click="onGetSafeHeights">Safe Heights</van-button>
+  <van-button class="btn" type="primary" block @click="setScreenHorizontal">强制/恢复横屏</van-button>
+  <van-button class="btn" type="primary" block @click="setScreenPortrait">强制/恢复竖屏</van-button>
 
-  ======== Android Only ========
+  =========== Android Only ===========
 
   <van-button class="btn" type="primary" block @click="onModalLoading">ModalLoading</van-button>
   <van-button class="btn" type="primary" block @click="onModalProgress">ModalProgress</van-button>
-
-
-  <van-button class="btn" type="primary" block @click="onScan">Scan Mix</van-button>
-  <van-button class="btn" type="primary" block @click="preDial('18043730725')">Dial Number: 18043730725</van-button>
-  <van-button class="btn" type="primary" block @click="onCheckNetworkType">NetWork Type</van-button>
-  <van-button class="btn" type="primary" block @click="onTakePhoto">Take Photo</van-button>
   <van-button class="btn" type="primary" block @click="vibrate">Vibrate</van-button>
   <van-button class="btn" type="primary" block @click="vibrate2">Vibrate2</van-button>
-  <van-button class="btn" type="primary" block @click="onGetSafeTop">Safe Top</van-button>
-  <van-button class="btn" type="primary" block @click="setScreenHorizontal">强制/恢复横屏</van-button>
-  <van-button class="btn" type="primary" block @click="setScreenPortrait">强制/恢复竖屏</van-button>
+  <van-button class="btn" type="primary" block @click="showToast('显示toast.')">Toast</van-button>
+  <van-button class="btn" type="primary" block @click="onTakePhoto">Take Photo</van-button>
+
+  <van-button class="btn" type="primary" block @click="onScan">Scan Mix</van-button>
+
   <van-button class="btn" type="primary" block @click="notification(1, '标题', '通知内容')">通知</van-button>
   <van-button class="btn" type="primary" block @click="notificationAsync(2, '标题', '通知内容2，杀进程后将失效', 4)">延迟通知</van-button>
   <van-button class="btn" type="primary" block @click="ipConfig">IP Config</van-button>
-  <van-button class="btn" type="primary" block @click="onGetDeviceInfo">获取设备信息</van-button>
-  <van-button class="btn" type="primary" block @click="showToast('显示toast.')">Toast</van-button>
 
   <img alt="." :src="imgSrc" style="width:calc(100vw - 80px);height: auto;" />
 </template>
@@ -42,41 +42,24 @@
 <script setup>
 import { ref } from 'vue'
 // 
-import { modalTips, modalConfirm, writeLocal, readLocal } from '$'
+import { modalTips, modalConfirm, writeLocal, readLocal, preDial, checkNetworkType, getDeviceInfo, getSafeHeights, setScreenHorizontal, setScreenPortrait } from '$'
 // ================================================================================================================
 import { showToast, modalLoading, finishLoading, modalProgress, setProgress } from '$'
-import { scan, preDial, checkNetworkType, takePhoto, vibrate, vibrate2, getSafeHeights } from '$'
-import { setScreenHorizontal, setScreenPortrait, notification, notificationAsync, ipConfig, getDeviceInfo } from '$'
+import { scan, takePhoto, vibrate, vibrate2 } from '$'
+import { notification, notificationAsync, ipConfig } from '$'
 
-// import modalTips2 from '$/ios/modalTips.js'
+
 const dm = ref()
 const imgSrc = ref()
 const done = ref('')
 const nope = ref('')
 
 async function test() {
-  modalConfirm('标题33', 'ModalTips636').then((res) => {
-    nope.value = `${res}`
-    if (res) {
-      actionDone()
-    } else {
-      actionNoDone()
-    }
-  })
-  // alert(window.RTMB.platform)
-  return
-  try {
-    let reply = await window.webkit.messageHandlers['modalTips'].postMessage('asdasdasdasdasdsdax')
-    alert(reply)
-  } catch (err) {
-    alert(err)
-    console.error(err)
-  }
+
 }
 
 function onModalTips() {
   modalTips('标题12', 'ModalTips333').then(() => {
-    // alert("您点击了 modalTips 确定")
     actionDone()
   })
 }
@@ -92,7 +75,7 @@ function onModalConfirm() {
 }
 
 function onWriteLocal() {
-  writeLocal('damn2', 'God damn itdddd!').then((res) => {
+  writeLocal('damn', 'God damn itdddd!').then((res) => {
     if (res) {
       actionDone()
     } else {
@@ -103,10 +86,37 @@ function onWriteLocal() {
 
 function onReadLocal() {
   readLocal('damn').then((res) => {
-    alert(res)
+    modalTips('readLocal', JSON.stringify(res))
+    actionDone(res)
+  })
+}
+
+function onCheckNetworkType() {
+  checkNetworkType().then((res) => {
+    modalTips('checkNetworkType', JSON.stringify(res))
+    actionDone(res)
+  })
+}
+
+function onGetDeviceInfo() {
+  getDeviceInfo().then((res) => {
+    modalTips('getDeviceInfo', JSON.stringify(res))
     actionDone()
   })
 }
+
+function onGetSafeHeights() {
+  getSafeHeights().then((res) => {
+    modalTips('getSafeHeights', JSON.stringify(res))
+    actionDone()
+  })
+}
+
+
+
+
+
+
 
 
 // ================================================================================================================
@@ -140,12 +150,7 @@ function onScan() {
   })
 }
 
-function onCheckNetworkType() {
-  checkNetworkType().then((res) => {
-    alert(res)
-    actionDone()
-  })
-}
+
 
 function onTakePhoto() {
   takePhoto().then((base64Str) => {
@@ -155,26 +160,13 @@ function onTakePhoto() {
   })
 }
 
-function onGetSafeTop() {
-  getSafeHeights().then((res) => {
-    alert(JSON.stringify(res))
-    // alert(res)
-    actionDone()
-  })
-}
 
-function onGetDeviceInfo() {
-  getDeviceInfo().then((res) => {
-    alert(JSON.stringify(res))
-    actionDone()
-  })
-}
 
 
 
 // ---------------------------------------------------
-function actionDone() {
-  done.value = 'done!'
+function actionDone(v) {
+  done.value = v ? `${v}` : 'done!'
   setTimeout(() => {
     done.value = ''
   }, 2000);
