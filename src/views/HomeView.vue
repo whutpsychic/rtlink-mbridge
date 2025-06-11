@@ -7,7 +7,6 @@
   <p>{{ nope }}</p>
   <p id="msg"></p>
 
-  <van-button class="btn" type="primary" block @click="test">test</van-button>
 
   <van-button class="btn" type="primary" block @click="onModalTips">Native Alert</van-button>
   <van-button class="btn" type="primary" block @click="onModalConfirm">ModalConfirm</van-button>
@@ -21,6 +20,13 @@
   <van-button class="btn" type="primary" block @click="setScreenHorizontal">强制/恢复横屏</van-button>
   <van-button class="btn" type="primary" block @click="setScreenPortrait">强制/恢复竖屏</van-button>
 
+  <van-button class="btn" type="primary" block @click="notification(1, '标题', '通知内容，android杀进程后将失效', 4)">
+    通知 android bug
+  </van-button>
+
+  <van-button class="btn" type="primary" block @click="onTakePhoto">Take Photo</van-button>
+
+
   =========== Android Only ===========
 
   <van-button class="btn" type="primary" block @click="onModalLoading">ModalLoading</van-button>
@@ -28,35 +34,30 @@
   <van-button class="btn" type="primary" block @click="vibrate">Vibrate</van-button>
   <van-button class="btn" type="primary" block @click="vibrate2">Vibrate2</van-button>
   <van-button class="btn" type="primary" block @click="showToast('显示toast.')">Toast</van-button>
-  <van-button class="btn" type="primary" block @click="onTakePhoto">Take Photo</van-button>
 
   <van-button class="btn" type="primary" block @click="onScan">Scan Mix</van-button>
 
-  <van-button class="btn" type="primary" block @click="notification(1, '标题', '通知内容')">通知</van-button>
-  <van-button class="btn" type="primary" block @click="notificationAsync(2, '标题', '通知内容2，杀进程后将失效', 4)">延迟通知</van-button>
   <van-button class="btn" type="primary" block @click="ipConfig">IP Config</van-button>
 
   <img alt="." :src="imgSrc" style="width:calc(100vw - 80px);height: auto;" />
+
 </template>
 
 <script setup>
 import { ref } from 'vue'
 // 
 import { modalTips, modalConfirm, writeLocal, readLocal, preDial, checkNetworkType, getDeviceInfo, getSafeHeights, setScreenHorizontal, setScreenPortrait } from '$'
+import { notification } from '$'
 // ================================================================================================================
 import { showToast, modalLoading, finishLoading, modalProgress, setProgress } from '$'
 import { scan, takePhoto, vibrate, vibrate2 } from '$'
-import { notification, notificationAsync, ipConfig } from '$'
+import {  ipConfig } from '$'
 
 
 const dm = ref()
 const imgSrc = ref()
 const done = ref('')
 const nope = ref('')
-
-async function test() {
-
-}
 
 function onModalTips() {
   modalTips('标题12', 'ModalTips333').then(() => {
@@ -112,6 +113,12 @@ function onGetSafeHeights() {
   })
 }
 
+function onTakePhoto() {
+  takePhoto().then((base64Str) => {
+    imgSrc.value = base64Str
+    actionDone()
+  })
+}
 
 
 
@@ -120,8 +127,6 @@ function onGetSafeHeights() {
 
 
 // ================================================================================================================
-
-
 
 function onModalLoading() {
   modalLoading('加载中', '请稍后...')
@@ -142,26 +147,11 @@ function onModalProgress() {
   setTimeout(hell2, 3000)
 }
 
-
 function onScan() {
   scan((res) => {
-    alert(res)
     actionDone()
   })
 }
-
-
-
-function onTakePhoto() {
-  takePhoto().then((base64Str) => {
-    alert(base64Str)
-    imgSrc.value = base64Str
-    actionDone()
-  })
-}
-
-
-
 
 
 // ---------------------------------------------------

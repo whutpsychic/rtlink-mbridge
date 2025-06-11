@@ -20,6 +20,10 @@ import setScreenHorizontalA from './android/setScreenHorizontal.js'
 import setScreenHorizontalI from './ios/setScreenHorizontal.js'
 import setScreenPortraitA from './android/setScreenPortrait.js'
 import setScreenPortraitI from './ios/setScreenPortrait.js'
+import notificationA from './android/notification.js'
+import notificationI from './ios/notification.js'
+import takePhotoA from './android/takePhoto.js'
+import takePhotoI from './ios/takePhoto.js'
 
 
 
@@ -31,10 +35,7 @@ import { fn as modalLoading, finishLoading } from './android/modalLoading.js'
 import { fn as modalProgress, setProgress } from './android/modalProgress.js'
 import scan from './android/scan.js'
 
-import takePhoto from './android/takePhoto.js'
 import { vibrate, vibrate2 } from './android/vibrate.js'
-import notification from './android/notification.js'
-import notificationAsync from './android/notificationAsync.js'
 import ipConfig from './android/ipConfig.js'
 
 // 原生平台 alert 提示
@@ -127,20 +128,36 @@ async function setScreenPortrait() {
   }
 }
 
+// 本地通知
+async function notification(id, title, content, seconds = 2) {
+  if (getPlatform() === 'android') {
+    return notificationA(id, title, content, seconds)
+  } else if (getPlatform() === 'ios') {
+    return notificationI(title, content, seconds)
+  }
+}
 
-
+// 相机拍照（返回base64字符串）
+async function takePhoto() {
+  if (getPlatform() === 'android') {
+    return takePhotoA()
+  } else if (getPlatform() === 'ios') {
+    return takePhotoI()
+  }
+}
 
 // --------------------------------- Android /iOS ---------------------------------
 export { modalTips, modalConfirm, writeLocal, readLocal }
-export { preDial, checkNetworkType, getDeviceInfo, getSafeHeights, setScreenHorizontal, setScreenPortrait }
+export { preDial, checkNetworkType, getDeviceInfo, getSafeHeights, setScreenHorizontal, setScreenPortrait, notification, takePhoto }
+
 // --------------------------------- Android only ---------------------------------
 export { showToast, modalLoading, finishLoading, modalProgress, setProgress }
-export { takePhoto, vibrate, vibrate2 }
+export { vibrate, vibrate2 }
 // --------------------------------------------------------------------------------
 
 
 
 export { scan }
-export { notification, notificationAsync, ipConfig }
+export { ipConfig }
 
 
