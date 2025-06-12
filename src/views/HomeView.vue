@@ -2,6 +2,7 @@
   <div style="width: 100%;height:38px;background-color: purple;"></div>
   <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
   <van-uploader v-model="dm" multiple></van-uploader>
+  <!-- <van-uploader v-model="dm" multiple capture="camera"></van-uploader> -->
 
   <p>{{ done }}</p>
   <p>{{ nope }}</p>
@@ -23,7 +24,6 @@
   <van-button class="btn" type="primary" block @click="notification(1, '标题', '通知内容，android杀进程后将失效', 4)">
     通知 android bug
   </van-button>
-
   <van-button class="btn" type="primary" block @click="onTakePhoto">Take Photo</van-button>
 
 
@@ -45,19 +45,18 @@
 
 <script setup>
 import { ref } from 'vue'
-// 
-import { modalTips, modalConfirm, writeLocal, readLocal, preDial, checkNetworkType, getDeviceInfo, getSafeHeights, setScreenHorizontal, setScreenPortrait } from '$'
-import { notification } from '$'
-// ================================================================================================================
+// =========== Android/iOS ===========
+import { modalTips, modalConfirm, writeLocal, readLocal, preDial, checkNetworkType, getDeviceInfo } from '$'
+import { getSafeHeights, setScreenHorizontal, setScreenPortrait, notification, takePhoto } from '$'
+// =========== Android Only ===========
 import { showToast, modalLoading, finishLoading, modalProgress, setProgress } from '$'
-import { scan, takePhoto, vibrate, vibrate2 } from '$'
-import {  ipConfig } from '$'
+import { scan, vibrate, vibrate2 } from '$'
+import { ipConfig } from '$'
 
 
 const dm = ref()
 const imgSrc = ref()
 const done = ref('')
-const nope = ref('')
 
 function onModalTips() {
   modalTips('标题12', 'ModalTips333').then(() => {
@@ -70,7 +69,7 @@ function onModalConfirm() {
     if (res) {
       actionDone()
     } else {
-      actionNoDone()
+      actionDone('nope')
     }
   })
 }
@@ -80,7 +79,7 @@ function onWriteLocal() {
     if (res) {
       actionDone()
     } else {
-      actionNoDone()
+      actionDone('nope')
     }
   })
 }
@@ -116,12 +115,14 @@ function onGetSafeHeights() {
 function onTakePhoto() {
   takePhoto().then((base64Str) => {
     imgSrc.value = base64Str
-    actionDone()
   })
 }
 
-
-
+function onScan() {
+  scan((res) => {
+    actionDone()
+  })
+}
 
 
 
@@ -147,23 +148,10 @@ function onModalProgress() {
   setTimeout(hell2, 3000)
 }
 
-function onScan() {
-  scan((res) => {
-    actionDone()
-  })
-}
-
 
 // ---------------------------------------------------
 function actionDone(v) {
   done.value = v ? `${v}` : 'done!'
-  setTimeout(() => {
-    done.value = ''
-  }, 2000);
-}
-
-function actionNoDone() {
-  done.value = 'nodone!'
   setTimeout(() => {
     done.value = ''
   }, 2000);
