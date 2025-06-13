@@ -1,6 +1,9 @@
 <template>
   <div style="width: 100%;height:38px;background-color: purple;"></div>
   <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+
+  <p style="margin:20px 0;"> ========= Android / iOS ========= </p>
+
   <van-uploader v-model="dm" multiple></van-uploader>
   <!-- <van-uploader v-model="dm" multiple capture="camera"></van-uploader> -->
 
@@ -8,12 +11,11 @@
   <p>{{ nope }}</p>
   <p id="msg"></p>
 
-
   <van-button class="btn" type="primary" block @click="onModalTips">Native Alert</van-button>
   <van-button class="btn" type="primary" block @click="onModalConfirm">ModalConfirm</van-button>
 
   <van-button class="btn" type="primary" block @click="onWriteLocal">WriteLocal</van-button>
-  <van-button class="btn" type="primary" block @click="onReadLocal">ReadLocal android bug</van-button>
+  <van-button class="btn" type="primary" block @click="onReadLocal">ReadLocal</van-button>
   <van-button class="btn" type="primary" block @click="preDial('18043730725')">Dial Number: 18043730725</van-button>
   <van-button class="btn" type="primary" block @click="onCheckNetworkType">NetWork Type</van-button>
   <van-button class="btn" type="primary" block @click="onGetDeviceInfo">获取设备信息</van-button>
@@ -21,22 +23,19 @@
   <van-button class="btn" type="primary" block @click="setScreenHorizontal">强制/恢复横屏</van-button>
   <van-button class="btn" type="primary" block @click="setScreenPortrait">强制/恢复竖屏</van-button>
 
-  <van-button class="btn" type="primary" block @click="notification(1, '标题', '通知内容，android杀进程后将失效', 4)">
-    通知 android bug
+  <van-button class="btn" type="primary" block @click="notification('标题', '通知内容，android杀进程后将失效', 4)">
+    通知
   </van-button>
   <van-button class="btn" type="primary" block @click="onTakePhoto">Take Photo</van-button>
+  <van-button class="btn" type="primary" block @click="onScan">Scan Mix android bug</van-button>
 
-
-  =========== Android Only ===========
+  <p style="margin:20px 0;"> ========= Android Only ========= </p>
 
   <van-button class="btn" type="primary" block @click="onModalLoading">ModalLoading</van-button>
   <van-button class="btn" type="primary" block @click="onModalProgress">ModalProgress</van-button>
   <van-button class="btn" type="primary" block @click="vibrate">Vibrate</van-button>
   <van-button class="btn" type="primary" block @click="vibrate2">Vibrate2</van-button>
   <van-button class="btn" type="primary" block @click="showToast('显示toast.')">Toast</van-button>
-
-  <van-button class="btn" type="primary" block @click="onScan">Scan Mix</van-button>
-
   <van-button class="btn" type="primary" block @click="ipConfig">IP Config</van-button>
 
   <img alt="." :src="imgSrc" style="width:calc(100vw - 80px);height: auto;" />
@@ -47,10 +46,10 @@
 import { ref } from 'vue'
 // =========== Android/iOS ===========
 import { modalTips, modalConfirm, writeLocal, readLocal, preDial, checkNetworkType, getDeviceInfo } from '$'
-import { getSafeHeights, setScreenHorizontal, setScreenPortrait, notification, takePhoto } from '$'
+import { getSafeHeights, setScreenHorizontal, setScreenPortrait, notification, takePhoto, scan } from '$'
 // =========== Android Only ===========
 import { showToast, modalLoading, finishLoading, modalProgress, setProgress } from '$'
-import { scan, vibrate, vibrate2 } from '$'
+import { vibrate, vibrate2 } from '$'
 import { ipConfig } from '$'
 
 
@@ -75,12 +74,8 @@ function onModalConfirm() {
 }
 
 function onWriteLocal() {
-  writeLocal('damn', 'God damn itdddd!').then((res) => {
-    if (res) {
-      actionDone()
-    } else {
-      actionDone('nope')
-    }
+  writeLocal('damn', 'God damn itdddd!').then(() => {
+    actionDone()
   })
 }
 
@@ -119,11 +114,15 @@ function onTakePhoto() {
 }
 
 function onScan() {
-  scan((res) => {
-    actionDone()
+  // scan((res) => {
+  //   modalTips('onScan', res)
+  //   actionDone()
+  // })
+  scan().then((res) => {
+    modalTips('onScan', res)
+    actionDone(res)
   })
 }
-
 
 
 

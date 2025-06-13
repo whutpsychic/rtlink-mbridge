@@ -24,17 +24,13 @@ import notificationA from './android/notification.js'
 import notificationI from './ios/notification.js'
 import takePhotoA from './android/takePhoto.js'
 import takePhotoI from './ios/takePhoto.js'
-
-
-
+import scanA from './android/scan.js'
+import scanI from './ios/scan.js'
 
 // --------------------------------- Android only ---------------------------------
 import showToast from './android/toast.js'
-
 import { fn as modalLoading, finishLoading } from './android/modalLoading.js'
 import { fn as modalProgress, setProgress } from './android/modalProgress.js'
-import scan from './android/scan.js'
-
 import { vibrate, vibrate2 } from './android/vibrate.js'
 import ipConfig from './android/ipConfig.js'
 
@@ -129,9 +125,9 @@ async function setScreenPortrait() {
 }
 
 // 本地通知
-async function notification(id, title, content, seconds = 2) {
+async function notification(title, content, seconds = 2) {
   if (getPlatform() === 'android') {
-    return notificationA(id, title, content, seconds)
+    return notificationA(title, content, seconds)
   } else if (getPlatform() === 'ios') {
     return notificationI(title, content, seconds)
   }
@@ -146,18 +142,22 @@ async function takePhoto() {
   }
 }
 
+// 混合扫码
+async function scan() {
+  if (getPlatform() === 'android') {
+    return scanA()
+  } else if (getPlatform() === 'ios') {
+    return scanI()
+  }
+}
+
 // --------------------------------- Android /iOS ---------------------------------
 export { modalTips, modalConfirm, writeLocal, readLocal }
-export { preDial, checkNetworkType, getDeviceInfo, getSafeHeights, setScreenHorizontal, setScreenPortrait, notification, takePhoto }
+export { preDial, checkNetworkType, getDeviceInfo, getSafeHeights, setScreenHorizontal, setScreenPortrait, notification }
+export { takePhoto, scan }
 
 // --------------------------------- Android only ---------------------------------
 export { showToast, modalLoading, finishLoading, modalProgress, setProgress }
 export { vibrate, vibrate2 }
-// --------------------------------------------------------------------------------
-
-
-
-export { scan }
 export { ipConfig }
-
-
+// --------------------------------------------------------------------------------

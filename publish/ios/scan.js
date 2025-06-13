@@ -1,13 +1,12 @@
-import { androidName, chromeErrMsg } from '../global.js'
+import { kvSpliter, chromeErrMsg } from '../global.js'
 import { insertCallbackFn } from '../utils.js'
 
 const fnKey = `scan`
 const callbackFnKey = `${fnKey}Callback`
 
-export default function fn() {
+export default async function fn() {
   return new Promise((resolve) => {
-    // 运行已注册函数
-    window[androidName][fnKey]()
+    window.webkit.messageHandlers[fnKey].postMessage(``)
     // 绑定resolve
     insertCallbackFn(callbackFnKey, resolve)
   }).catch((err) => {
